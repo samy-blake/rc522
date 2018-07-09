@@ -1,11 +1,14 @@
 var spawn = require('child_process').spawn;
 var readline = require('readline');
 var registeredCallback = null;
+var registeredEmptyCallback = null;
 var child = null;
+var oldRfidTagSerialNumber = '';
 
 
-module.exports = exports = function(givenCallback){
-	registeredCallback = givenCallback;
+module.exports = exports = function(givenCardCallback, givenEmptyCallback){
+	registeredCallback = givenCardCallback;
+	registeredEmptyCallback = givenEmptyCallback;
 };
 
 var mainProcessShutdown = false;
@@ -16,10 +19,20 @@ var initChildProcess = function()
 	var linereader = readline.createInterface(child.stdout, child.stdin);
 
 	linereader.on('line', function (rfidTagSerialNumber) {
-		if(registeredCallback instanceof Function)
-		{
-			registeredCallback(rfidTagSerialNumber);
+		if(rfidTagSerialNumber === 'false') {
+			if(registeredCallback instanceof Function) {
+				if(oldRfidTagSerialNumber !== rfidTagSerialNumber) {
+					oldRfidTagSerialNumber = rfidTagSerialNumber;
+					registeredCallback(rfidTagSerialNumber);
+				}
+			}
+		} else {
+			if(registeredEmptyCallback instanceof Function) {
+				oldRfidTagSerialNumber = '';
+				registeredEmptyCallback();
+			}
 		}
+
 	});
 
 	child.on('close', function(code) {
