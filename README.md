@@ -2,7 +2,7 @@
 node.js module to access a rfid reader with rc522 chipset which is connected a raspberry pi
 
 ##Fork of
-This is a fork with added functionality. For a nice and simpler module please see the original https://www.npmjs.com/package/rc522-rfid https://github.com/sbrinkmann/rc522-rfid and adjustment of https://github.com/SebastianPozoga/rc522-rfid
+This is a fork with added functionality. For a nice and simpler module please see the original https://www.npmjs.com/package/rc522-rfid https://github.com/sbrinkmann/rc522-rfid https://github.com/ocsacesar/rc522 and adjustment of https://github.com/SebastianPozoga/rc522-rfid
 
 ## Purpose
 This node module is to access RFID reader with a rc522 chipset (e.g. http://amzn.com/B00GYR1KJ8) via GPIO interface of the raspberry pi.
@@ -19,7 +19,7 @@ sudo apt-get install -y nodejs
 ```
 
 ## 2. Update your PI:
-``` 
+```
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
