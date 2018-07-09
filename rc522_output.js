@@ -1,4 +1,5 @@
 var rc522 = require('./build/Release/rc522');
+var timeout = null;
 
 rc522(function(rfidTagSerialNumber) {
 	if(timeout) {
