@@ -51,14 +51,14 @@ sudo modprobe spi_bcm2835
 cd ~/
 mkdir RFID
 cd RFID/
-npm install --save rc522
+npm install --save rc522-empty-card
 nano rfid.js
 ```
 
 Put this into:
 
 ```
-var rc522 = require("rc522");
+var rc522 = require("rc522-empty-card");
 
 console.log('Ready!!!');
 
