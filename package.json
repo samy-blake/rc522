@@ -9,7 +9,7 @@
     "rfid",
     "rc522"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/samy-blake/rc522.git"
@@ -24,10 +24,8 @@
   "engines": {
     "node": "0.12.9"
   },
-  "dependencies": {
-  },
-  "optionalDependencies": {
-  },
+  "dependencies": {},
+  "optionalDependencies": {},
   "gitHead": "",
   "bugs": {
     "url": "https://github.com/ocsacesar/rc522/issues"
