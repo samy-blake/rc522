@@ -4,6 +4,7 @@ var registeredCallback = null;
 var registeredEmptyCallback = null;
 var child = null;
 var oldRfidTagSerialNumber = '';
+var timeout = false;
 
 
 module.exports = exports = function(givenCardCallback, givenEmptyCallback){
@@ -19,19 +20,25 @@ var initChildProcess = function()
 	var linereader = readline.createInterface(child.stdout, child.stdin);
 
 	linereader.on('line', function (rfidTagSerialNumber) {
-		if(rfidTagSerialNumber === 'false') {
-			if(registeredCallback instanceof Function) {
-				if(oldRfidTagSerialNumber !== rfidTagSerialNumber) {
-					oldRfidTagSerialNumber = rfidTagSerialNumber;
-					registeredCallback(rfidTagSerialNumber);
-				}
+
+		if(registeredCallback instanceof Function) {
+			if(timeout) {
+				clearTimeout(timeout);
 			}
-		} else {
-			if(registeredEmptyCallback instanceof Function) {
-				oldRfidTagSerialNumber = '';
-				registeredEmptyCallback();
+
+			timeout = setTimeout(function() {
+				if(registeredEmptyCallback instanceof Function) {
+					oldRfidTagSerialNumber = '';
+					registeredEmptyCallback();
+				}
+			}, 2000);
+
+			if(oldRfidTagSerialNumber !== rfidTagSerialNumber) {
+				oldRfidTagSerialNumber = rfidTagSerialNumber;
+				registeredCallback(rfidTagSerialNumber);
 			}
 		}
+
 
 	});
 
